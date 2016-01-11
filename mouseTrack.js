@@ -152,10 +152,10 @@ document.onmousemove = function(event)
                 document.body.appendChild(canvas);
             }
             moved=true
-            console.log('indraw'+trail)
+            // console.log('indraw'+trail)
 
             if(trail){
-                console.log('draw')
+                // console.log('draw')
                 draw(ny,nx)
             }
 
@@ -192,7 +192,7 @@ document.onmouseup = function(event)
         else{
             --suppress
             // console.log('no move '+suppress)
-            $('#target').rmousedown(which=3);
+            // $('#target').rmousedown(which=3);
         }
     }
 };
@@ -230,12 +230,16 @@ function exeFunc()
                     function(response)
                     {
                         if(response != null)
-                            console.log(response.resp);
+						{
+                            // console.log(response.resp);
+						}
                         else
                         {
-                            console.log('problem executing open tab')
+                            //console.log('problem executing open tab')
                             if(chrome.extension.lastError)
-                                console.log(chrome.extension.lastError.message)
+							{
+                                // console.log(chrome.extension.lastError.message)
+							}
                         }
                     });
             }
