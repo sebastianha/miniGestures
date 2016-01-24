@@ -146,6 +146,12 @@ function saveOptions() {
 
 // Restores select box state to saved value from localStorage.
 function restoreOptions() {
+	var rocker = document.getElementById("rocker");
+	rocker.checked = localStorage.rocker === "true";
+
+	var trail = document.getElementById("trail");
+	trail.checked = localStorage.trail === "true";
+
 	var select = document.getElementById("color");
 	var value = colorNames[localStorage.colorCode];
 	if(!value) {
