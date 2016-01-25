@@ -1,0 +1,29 @@
+{
+	"node"     : true,
+	"bitwise"  : true,
+	"browser"  : true,
+	"camelcase": true,
+	"curly"    : true,
+	"devel"    : true,
+	"eqeqeq"   : true,
+	"esnext"   : true,
+	"forin"    : true,
+	"freeze"   : true,
+	"globals"  : {
+		"$"     : false,
+		"chrome": false
+	},
+	"immed"    : true,
+	"indent"   : 4,
+	"latedef"  : true,
+	"newcap"   : true,
+	"noarg"    : true,
+	"noempty"  : true,
+	"nonew"    : true,
+	"quotmark" : "double",
+	"smarttabs": true,
+	"strict"   : true,
+	"trailing" : true,
+	"undef"    : true,
+	"unused"   : "vars"
+}
