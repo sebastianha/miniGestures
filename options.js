@@ -16,20 +16,6 @@
  */
 "use strict";
 
-var colorCodes = {
-	"red"   : "ff3300",
-	"green" : "008000",
-	"blue"  : "00008B",
-	"yellow": "FFFF00"
-};
-
-var colorNames = {
-	"ff3300": "red",
-	"008000": "green",
-	"00008B": "blue",
-	"FFFF00": "yellow"
-};
-
 var defaultGests = {
 	"U" : "newtab",
 	"R" : "forward",
@@ -70,9 +56,6 @@ function fillMenu() {
 
 	for(key in localStorage) {
 		if(localStorage.hasOwnProperty(key)) {
-			if(key === "colorCode" || key === "width") {
-				continue;
-			}
 			gests[key] = localStorage[key];
 		}
 	}
@@ -104,25 +87,11 @@ function fillMenu() {
 
 // Saves options to localStorage.
 function saveOptions() {
-	var select = document.getElementById("color");
-	var value = select.children[select.selectedIndex].value;
-	localStorage.colorCode = colorCodes[value];
-
-	select = document.getElementById("width");
-	localStorage.width = select.children[select.selectedIndex].value;
-
 	var rocker = document.getElementById("rocker");
 	if(rocker.checked) {
 		localStorage.rocker = true;
 	} else {
 		localStorage.rocker = false;
-	}
-
-	var trail = document.getElementById("trail");
-	if(trail.checked) {
-		localStorage.trail = true;
-	} else {
-		localStorage.trail = false;
 	}
 
 	// Update status to let user know options were saved.
@@ -148,35 +117,6 @@ function saveOptions() {
 function restoreOptions() {
 	var rocker = document.getElementById("rocker");
 	rocker.checked = localStorage.rocker === "true";
-
-	var trail = document.getElementById("trail");
-	trail.checked = localStorage.trail === "true";
-
-	var select = document.getElementById("color");
-	var value = colorNames[localStorage.colorCode];
-	if(!value) {
-		value = "red";
-	}
-	for(var i = 0; i < select.children.length; i++) {
-		var child = select.children[i];
-		if(child.value === value) {
-			child.selected = "true";
-			break;
-		}
-	}
-
-	select = document.getElementById("width");
-	value = localStorage.width;
-	if(!value) {
-		value = 3;
-	}
-	for(var ii = 0; ii < select.children.length; ii++) {
-		var child2 = select.children[ii];
-		if(child2.value === value) {
-			child2.selected = "true";
-			break;
-		}
-	}
 }
 
 function loadInfo() {

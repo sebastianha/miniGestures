@@ -17,13 +17,12 @@
 "use strict";
 
 var rmousedown = false, moved = false, lmousedown = false;
-var rocker = false, trail = false;
+var rocker = false;
 var mx, my, nx, ny, lx, ly, phi;
 var move = "", omove = "";
 var pi = 3.14159;
 var suppress = 1;
-var canvas, myGests, ginv;
-var myColor = "red", myWidth = 3;
+var myGests, ginv;
 var loaded = false;
 var rocked = false;
 var link = null;
@@ -36,31 +35,6 @@ function invertHash(hash) {
 		}
 	}
 	return inv;
-}
-
-function createCanvas() {
-	canvas = document.createElement("canvas");
-	canvas.id = "gestCanvas";
-	canvas.style.width = document.body.scrollWidth;
-	canvas.style.height = document.body.scrollHeight;
-	canvas.width = window.document.body.scrollWidth;
-	canvas.height = window.document.body.scrollHeight;
-	canvas.style.left = "0px";
-	canvas.style.top = "0px";
-	canvas.style.overflow = "visible";
-	canvas.style.position = "absolute";
-	canvas.style.zIndex = "10000";
-}
-function draw(x, y) {
-	var ctx = document.getElementById("gestCanvas").getContext("2d");
-	ctx.beginPath();
-	ctx.strokeStyle = myColor;
-	ctx.lineWidth = myWidth;
-	ctx.moveTo(lx, ly);
-	ctx.lineTo(x, y);
-	ctx.stroke();
-	lx = x;
-	ly = y;
 }
 
 document.onmousedown = function(event) {
@@ -140,15 +114,7 @@ document.onmousemove = function(event) {
 				move += tmove;
 				omove = tmove;
 			}
-			if(moved === false) {
-				createCanvas();
-				document.body.appendChild(canvas);
-			}
 			moved = true;
-
-			if(trail) {
-				draw(ny, nx);
-			}
 
 			mx = nx;
 			my = ny;
@@ -166,18 +132,11 @@ document.onmouseup = function(event) {
 	if(event.which === 3) {
 		rmousedown = false;
 		if(moved) {
-			var cvs = document.getElementById("gestCanvas");
-			if(cvs) {
-				// document.body.removeChild(link)
-				document.body.removeChild(canvas);
-				cvs.width = cvs.width;
-			}
 			exeFunc();
 		} else if(rocked) {
 			rocked = false;
 		} else {
 			--suppress;
-			// $("#target").rmousedown(which=3);
 		}
 	}
 };
@@ -241,16 +200,6 @@ document.oncontextmenu = function() {
 };
 
 function loadOptions(name) {
-	chrome.extension.sendMessage({msg: "colorCode"}, function(response) {
-		if(response) {
-			myColor = response.resp;
-		}
-	});
-	chrome.extension.sendMessage({msg: "width"}, function(response) {
-		if(response) {
-			myWidth = response.resp;
-		}
-	});
 	chrome.extension.sendMessage({msg: "gests"}, function(response) {
 		if(response) {
 			myGests = response.resp;
@@ -269,16 +218,6 @@ function loadOptions(name) {
 		}
 	});
 
-	chrome.extension.sendMessage({msg: "trail"}, function(response) {
-		if(response) {
-			trail = response.resp;
-		}
-		if(trail == "true") {
-			trail = true;
-		} else {
-			trail = false;
-		}
-	});
 }
 
 document.addEventListener("DOMContentLoaded", loadOptions);
